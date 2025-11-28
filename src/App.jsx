@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 const FOCUS_COPY = {
@@ -13,8 +13,10 @@ const FOCUS_COPY = {
 const PROJECTS = [
   {
     id: "baja-captain",
-    title: "Baja SAE – Team Captain & Project Management",
-    role: "Project leadership · Vehicle development",
+    title: "Baja SAE – Team Captain",
+    image: "/projects/baja-captain.JPEG",
+    featured: true,
+    skills: ["Leadership", "Mechanical", "Project Management", "Testing"],
     summary:
       "Leading a multi-year off-road race car program with a focus on testing-first design and realistic constraints.",
     details:
@@ -23,7 +25,9 @@ const PROJECTS = [
   {
     id: "ss400",
     title: "Salford SS400+ Fertilizer Spreader",
-    role: "Mechanical + electrical design · Test & validation",
+    image: "/projects/ss400.jpeg",
+    featured: true,
+    skills: ["Mechanical", "Electrical", "Hydraulics", "Testing", "CAD"],
     summary:
       "Largest single project from a 16-month co-op: full machine iterations from concept through field testing.",
     details:
@@ -31,8 +35,10 @@ const PROJECTS = [
   },
   {
     id: "salford-isobus",
-    title: "Salford HALO ISOBUS Cultivator Automation",
-    role: "Embedded controls · Networked implements",
+    title: "ISOBUS Protocol Networking",
+    image: "/projects/salford-isobus.jpeg",
+    featured: false,
+    skills: ["Embedded", "Controls", "Networking", "Electrical"],
     summary:
       "Brought a cultivator onto the standard agricultural ISOBUS network with GPS-based implement control.",
     details:
@@ -40,8 +46,10 @@ const PROJECTS = [
   },
   {
     id: "vertical-flow-wrapper",
-    title: "Vertical Flow Wrapper – Unmarrying & Retrofit",
-    role: "PLC integration · Process engineering",
+    title: "Vertical Flow Wrapper",
+    image: "/projects/vertical-flow-wrapper-2.jpeg",
+    featured: false,
+    skills: ["PLC", "Process Engineering", "Electrical", "Automation"],
     summary:
       "Decoupled and repurposed legacy packaging equipment to meet new product and throughput requirements.",
     details:
@@ -49,8 +57,10 @@ const PROJECTS = [
   },
   {
     id: "baja-pcb",
-    title: "Custom PCB Design for Baja SAE",
-    role: "Electronics design · Validation",
+    title: "Custom PCB Design",
+    image: "/projects/baja-pcb.jpg",
+    featured: false,
+    skills: ["Electronics", "PCB Design", "Validation"],
     summary:
       "Designed and tested PCBs to support vehicle instrumentation and control on an off-road race car.",
     details:
@@ -58,8 +68,10 @@ const PROJECTS = [
   },
   {
     id: "dyno",
-    title: "Electro-Hydraulic Engine Dynamometer",
-    role: "System modelling · Controls · Hydraulics",
+    title: "Engine Dynamometer",
+    image: "/projects/dyno.jpg",
+    featured: false,
+    skills: ["Modelling", "Controls", "Hydraulics", "Simulation"],
     summary:
       "Dyno project to understand drivetrain efficiency and durability for Baja SAE powertrains.",
     details:
@@ -67,8 +79,10 @@ const PROJECTS = [
   },
   {
     id: "47-ford",
-    title: "1947 Ford Sedan & 1998 Dodge Ram Restorations",
-    role: "Full-vehicle rebuilds · Self-directed projects",
+    title: "1947 Ford Sedan",
+    image: "/projects/47-ford.jpeg",
+    featured: false,
+    skills: ["Fabrication", "Mechanical", "Restoration"],
     summary:
       "Long-term restorations that taught me how real vehicles go together.",
     details:
@@ -76,8 +90,10 @@ const PROJECTS = [
   },
   {
     id: "subwoofer",
-    title: "Custom Subwoofer Box & Audio Integration",
-    role: "Fabrication · Packaging",
+    title: "Custom Audio System",
+    image: "/projects/sub-box.jpeg",
+    featured: false,
+    skills: ["Fabrication", "Packaging", "Design"],
     summary:
       "Designed and built a custom subwoofer enclosure with tight packaging and structural considerations.",
     details:
@@ -86,7 +102,9 @@ const PROJECTS = [
   {
     id: "webt",
     title: "Western Engineering Build Team",
-    role: "Student design team · Prototyping",
+    image: "/projects/webt.jpg",
+    featured: false,
+    skills: ["Prototyping", "Fabrication", "Student Design"],
     summary:
       "Hands-on build projects bridging classroom theory with real hardware.",
     details:
@@ -94,8 +112,10 @@ const PROJECTS = [
   },
   {
     id: "ag-framer",
-    title: "Agricultural Frame & Structure Concepts",
-    role: "Concept development · Structural design",
+    title: "Agricultural Framer",
+    image: "/projects/ag-framer.JPG",
+    featured: false,
+    skills: ["Concept Design", "Structural", "Mechanical"],
     summary:
       "Conceptual designs for agricultural frames and implement structures.",
     details:
@@ -105,7 +125,34 @@ const PROJECTS = [
 
 function App() {
   const [focusArea, setFocusArea] = useState("mechanical");
-  const [openProject, setOpenProject] = useState(null); // <— project object or null
+  const [openProject, setOpenProject] = useState(null);
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  const [activeSkills, setActiveSkills] = useState([]);
+  
+  useEffect(() => {
+    if (activeSkills.length > 0) {
+      setShowAllProjects(true);
+    }
+  }, [activeSkills]);
+
+  // Unique list of all skills from projects
+  const allSkills = [...new Set(PROJECTS.flatMap((p) => p.skills || []))];
+
+  // Projects filtered by active skill
+  const filteredProjects =
+    activeSkills.length === 0
+      ? PROJECTS
+      : PROJECTS.filter((project) =>
+          activeSkills.every((skill) => project.skills.includes(skill))
+        );
+
+  // Skills that exist in the currently filtered projects
+  const currentSkillsSet = new Set(
+    filteredProjects.flatMap((p) => p.skills || [])
+  );
+
+  // Preserve original order from allSkills, but only keep the visible ones
+  const visibleSkills = allSkills.filter((skill) => currentSkillsSet.has(skill));
 
   const handleProjectClick = (project) => {
     setOpenProject(project);
@@ -120,11 +167,17 @@ function App() {
       {/* Navbar */}
       <header className="nav">
         <div className="nav-inner">
-          <div className="nav-logo">ethan.dev</div>
+          <div
+            className="nav-logo"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            style={{ cursor: "pointer" }}
+          >
+            Ethan Bloemert
+          </div>
           <nav className="nav-links">
-            <a href="#about">About</a>
-            <a href="#focus">Mechanical · Electrical · Software</a>
-            <a href="#projects">Projects</a>
+            <a href="#focus">Discipline Overview</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">My Projects</a>
             <a href="#story">Story</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -138,7 +191,7 @@ function App() {
             Mechatronics Engineer · Off-Highway & Vehicle Systems
           </p>
           <h1 className="hero-title">
-            <span className="hero-hello">hello,</span>
+            <span className="hero-hello">Hello,</span>
             <span className="hero-name">
               &nbsp;I&apos;m <span className="accent">Ethan</span>
             </span>
@@ -159,31 +212,13 @@ function App() {
           </div>
         </section>
 
-        {/* About */}
-        <section id="about" className="section">
-          <h2 className="section-title">About</h2>
-          <p className="section-text">
-            I&apos;m an electrical / mechanical engineer with experience in
-            agricultural machinery, automated production lines, Baja SAE, and
-            vehicle restorations. I enjoy taking ideas from concept to tested,
-            working hardware.
-          </p>
-          <p className="section-text">
-            I like small teams where engineers are close to the hardware and can
-            iterate quickly. My interests align strongly with hybrid /
-            electrified heavy-duty and off-highway platforms — where mechanical
-            fundamentals and smart controls meet.
-          </p>
-        </section>
-
         {/* Mechanical / Electrical / Software toggle */}
-        <section id="focus" className="section focus-section">
+        <section id="focus" className={`section focus-section ${focusArea}`}>
           <h2 className="section-title">Mechanical · Electrical · Software</h2>
           <div className="focus-toggle">
             <button
               className={
-                "focus-pill" +
-                (focusArea === "mechanical" ? " active" : "")
+                "focus-pill" + (focusArea === "mechanical" ? " active" : "")
               }
               onClick={() => setFocusArea("mechanical")}
             >
@@ -191,8 +226,7 @@ function App() {
             </button>
             <button
               className={
-                "focus-pill" +
-                (focusArea === "electrical" ? " active" : "")
+                "focus-pill" + (focusArea === "electrical" ? " active" : "")
               }
               onClick={() => setFocusArea("electrical")}
             >
@@ -200,49 +234,165 @@ function App() {
             </button>
             <button
               className={
-                "focus-pill" +
-                (focusArea === "software" ? " active" : "")
+                "focus-pill" + (focusArea === "software" ? " active" : "")
               }
               onClick={() => setFocusArea("software")}
             >
               Software
             </button>
           </div>
-          <p className="section-text focus-copy">
-            {FOCUS_COPY[focusArea]}
-          </p>
+          <p className="section-text focus-copy">{FOCUS_COPY[focusArea]}</p>
+        </section>
+
+        {/* Skills */}
+        <section id="skills" className="section skills-section">
+          <div className="section-header">
+            <h2 className="section-title">Skills</h2>
+            <p className="section-subtitle">
+              Click a skill to filter the projects below.
+            </p>
+          </div>
+
+          <div className="pill-row skills-pill-row">
+            {/* "All" pill */}
+            <button
+              className={`pill pill-clear ${activeSkills.length === 0 ? "pill-active" : ""}`}
+              onClick={() => {
+                setActiveSkills([]);
+                setShowAllProjects(false);
+              }}
+            >
+              Clear
+            </button>
+
+            {/* Generated pills from project skills */}
+            {visibleSkills.map((skill) => {
+              const isActive = activeSkills.includes(skill);
+
+              return (
+                <button
+                  key={skill}
+                  className={`pill ${isActive ? "pill-active" : ""}`}
+                  onClick={() => {
+                    setActiveSkills((current) =>
+                      isActive
+                        ? current.filter((s) => s !== skill) // unlatch
+                        : [...current, skill]               // latch
+                    );
+                  }}
+                >
+                  {skill}
+                </button>
+              );
+            })}
+          </div>
         </section>
 
         {/* Projects */}
         <section id="projects" className="section">
-          <h2 className="section-title">Selected projects</h2>
+          <h2 className="section-title">Projects</h2>
           <p className="section-text section-text-muted">
             Click a project to see the full story.
           </p>
 
-          <div className="projects-grid">
-            {PROJECTS.map((project) => (
-              <article
-                key={project.id}
-                className="card"
-                onClick={() => handleProjectClick(project)}
-              >
-                <div className="card-header">
-                  <div>
-                    <h3 className="card-title">{project.title}</h3>
-                    <p className="card-role">{project.role}</p>
+          {/* FEATURED PROJECTS – filtered by skill */}
+          <div className="projects-featured-grid">
+            {filteredProjects
+              .filter((p) => p.featured)
+              .map((project) => (
+                <article
+                  key={project.id}
+                  className="card featured"
+                  onClick={() => handleProjectClick(project)}
+                >
+                  {project.image && (
+                    <div className="card-image-wrap">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="card-image"
+                      />
+                    </div>
+                  )}
+
+                  <div className="card-header">
+                    <div>
+                      <h3 className="card-title">{project.title}</h3>
+                      <div className="pill-row card-pill-row">
+                        {project.skills?.map((skill) => (
+                          <span
+                            key={skill}
+                            className="pill pill-small pill-static"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="card-chevron">⟶</div>
                   </div>
-                  <div className="card-chevron">⟶</div>
-                </div>
-                <p className="card-text-summary">{project.summary}</p>
-              </article>
-            ))}
+                </article>
+              ))}
           </div>
+
+          {/* OTHER PROJECTS – filtered by skill, gated by "Show more" */}
+          {showAllProjects && (
+            <div className="projects-grid">
+              {filteredProjects
+                .filter((p) => !p.featured)
+                .map((project) => (
+                  <article
+                    key={project.id}
+                    className="card"
+                    onClick={() => handleProjectClick(project)}
+                  >
+                    {project.image && (
+                      <div className="card-image-wrap">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="card-image"
+                        />
+                      </div>
+                    )}
+
+                    <div className="card-header">
+                      <div>
+                        <h3 className="card-title">{project.title}</h3>
+                        <div className="pill-row card-pill-row">
+                          {project.skills?.map((skill) => (
+                            <span
+                              key={skill}
+                              className="pill pill-small pill-static"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="card-chevron">⟶</div>
+                    </div>
+                  </article>
+                ))}
+            </div>
+          )}
+
+          {/* Show more / less button */}
+          {filteredProjects.filter((p) => !p.featured).length > 0 && (
+            <div className="projects-show-more-wrap">
+              <button
+                className="projects-show-more-btn"
+                onClick={() => setShowAllProjects((v) => !v)}
+              >
+                {showAllProjects ? "Show less" : "Show more"}
+              </button>
+            </div>
+          )}
         </section>
 
         {/* Hands-on Story */}
         <section id="story" className="section">
-          <h2 className="section-title">Hands-on story</h2>
+          <h2 className="section-title">Story</h2>
           <p className="section-text">
             I&apos;ve been working on machines since I was a kid — starting with
             a riding mower and a two-stroke dirt bike, eventually moving into
@@ -259,11 +409,9 @@ function App() {
 
         {/* Contact */}
         <section id="contact" className="section section-contact">
-          <h2 className="section-title">Contact</h2>
+          <h2 className="section-title">Allow me to introduce myself</h2>
           <p className="section-text">
-            I’m interested in roles around hybrid / electric vehicle systems,
-            agricultural machinery, off-highway platforms, and small teams that
-            ship hardware.
+            Now you know a bit about me. I'd love to get to know you too.
           </p>
 
           <div className="contact-links">
@@ -294,14 +442,28 @@ function App() {
         <div className="modal-backdrop" onClick={handleCloseModal}>
           <div
             className="modal"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+            onClick={(e) => e.stopPropagation()}
           >
             <button className="modal-close" onClick={handleCloseModal}>
               ✕
             </button>
+            <img
+              src={openProject.image}
+              alt={openProject.title}
+              className="modal-image"
+            />
             <p className="modal-tag">Project</p>
             <h3 className="modal-title">{openProject.title}</h3>
-            <p className="modal-role">{openProject.role}</p>
+            <div className="pill-row modal-pill-row">
+              {openProject.skills?.map((skill) => (
+                <span
+                  key={skill}
+                  className="pill pill-small pill-static"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
             <p className="modal-summary">{openProject.summary}</p>
             <p className="modal-details">{openProject.details}</p>
           </div>

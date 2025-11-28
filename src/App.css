@@ -27,7 +27,7 @@
   /* Layout tokens */
   --radius-lg: 16px;
   --radius-pill: 999px;
-  --max-width: 1040px;
+  --max-width: none;
   --shadow-soft: 0 20px 48px rgba(0, 0, 0, 0.75);
   --transition-fast: 150ms ease-out;
 }
@@ -79,11 +79,15 @@ body {
   justify-content: space-between;
 }
 
+section {
+  scroll-margin-top: 80px;
+}
+
 .hero-hello,
 .hero-name {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -50%;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -125,7 +129,6 @@ body {
     transform: translateX(-20%);
   }
 }
-
 
 
 /* =========================================================
@@ -311,19 +314,22 @@ body {
 .section {
   padding: 40px 0 32px;
   border-top: 1px solid rgba(55, 62, 90, 0.8);
+  justify-items: center;
 }
 
 .section-title {
   font-size: 16px;
   font-weight: 550;
   margin: 0 0 12px;
+  text-align: center;
 }
 
 .section-text {
+  position: relative;
   font-size: 14px;
   line-height: 1.8;
   color: var(--text-main);
-  max-width: 720px;
+  width: 80%;
 }
 
 .section-text + .section-text {
@@ -332,9 +338,14 @@ body {
 
 .section-text-muted {
   color: var(--text-muted);
+  text-align: center;
+  position: relative;
+  max-width: none;
 }
 
-/* Optional skill pills (if you add them later) */
+/* =========================================================
+   Skill Pills
+   ========================================================= */
 
 .pill-row {
   display: flex;
@@ -352,6 +363,43 @@ body {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  transition: 0.2s ease;
+}
+
+button.pill {
+  border: none;
+}
+
+.pill-active {
+  background: var(--accent-secondary);
+  color: white;
+  border-color: var(--accent-secondary);
+}
+
+button.pill:hover {
+  border-color: var(--accent-soft);
+  color: var(--text);
+  background: var(--accent-secondary);
+}
+
+.pill-small {
+  font-size: 10px;
+  padding: 4px 9px;
+}
+
+.card-pill-row {
+  margin-top: 12px;
+}
+
+.modal-pill-row {
+  margin: 10px 0 20px;
+}
+
+.pill-clear {
+  margin-right: 12px;
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+  background-color:rgba(9, 12, 23, 0.98);
 }
 
 /* =========================================================
@@ -360,15 +408,19 @@ body {
 
 .focus-section {
   padding-top: 32px;
+  transition: background 350ms ease;
 }
 
+/* Keep your original toggle group */
 .focus-toggle {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  justify-content: center;
   margin-bottom: 14px;
 }
 
+/* Base pill */
 .focus-pill {
   border-radius: var(--radius-pill);
   border: 1px solid var(--line-subtle);
@@ -391,29 +443,79 @@ body {
   transform: translateY(-1px);
 }
 
-.focus-pill.active {
-  background: var(--accent-secondary);
-  border-color: var(--accent-secondary);
-  color: #08110d;
+/* Mechanical – solid yellow fill */
+.focus-section.mechanical .focus-pill.active {
+  background: #facc15;  /* yellow-400 */
+  border-color: #facc15;
+  color: #09100a;
+}
+
+/* Electrical – solid green fill */
+.focus-section.electrical .focus-pill.active {
+  background: #4ade80; /* green-400 */
+  border-color: #4ade80;
+  color: #03130b;
+}
+
+/* Software – solid blue fill */
+.focus-section.software .focus-pill.active {
+  background: #fa6060; /* blue-400 */
+  border-color: #fa6060;
+  color: #04121f;
 }
 
 .focus-copy {
   margin-top: 4px;
 }
 
+
 /* =========================================================
    Projects grid & cards
    ========================================================= */
 
+/* FEATURED PROJECTS ROW */
+.projects-featured-grid {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin-top: 32px;
+  width: 100%;
+  max-width: none;
+}
+
+@media (min-width: 860px) {
+  .projects-featured-grid {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+}
+
+/* Featured cards */
+.card.featured {
+  border-width: 2px;
+  border-color: var(--accent-secondary);
+  max-height: 300px;
+}
+
+.card.featured .card-image-wrap {
+  height: 80%;
+}
+
+.projects-featured-grid .card.featured:last-child:nth-child(odd) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* REGULAR PROJECTS — always 3 columns */
 .projects-grid {
   display: grid;
   gap: 18px;
-  margin-top: 18px;
+  margin-top: 32px;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 @media (min-width: 860px) {
   .projects-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
   }
 }
 
@@ -426,7 +528,9 @@ body {
   box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
+  max-height: 250px;
   gap: 8px;
+  max-width: none;
   overflow: hidden;
   cursor: pointer;
   transition:
@@ -443,7 +547,6 @@ body {
   background: linear-gradient(145deg, #151a2a, #070a13);
 }
 
-/* Kept for compatibility if you re-add "card-open" class later */
 .card-open {
   border-color: var(--accent-primary);
 }
@@ -478,17 +581,60 @@ body {
   margin: 8px 0 0;
 }
 
-.card-details {
-  margin-top: 10px;
-  border-top: 1px solid rgba(55, 62, 90, 0.7);
-  padding-top: 8px;
-}
-
 .card-text {
   font-size: 12px;
   color: var(--text-muted);
   line-height: 1.7;
   margin: 0;
+}
+
+.card-image-wrap {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  height: 80%;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
+.card:hover .card-image {
+  transform: scale(1.06);
+  filter: brightness(1.05);
+}
+
+.projects-show-more-wrap {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.projects-show-more-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-subtle);
+  background: rgba(9, 12, 23, 0.9);
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.projects-show-more-btn:hover {
+  border-color: var(--accent-secondary);
+  color: var(--text-main);
+  transform: translateY(-1px);
 }
 
 /* =========================================================
@@ -554,19 +700,16 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  /* much lighter overlay so the site still feels "there" */
   background: radial-gradient(
     circle at top,
     rgba(10, 14, 25, 0.35),
     rgba(0, 0, 0, 0.45),
     transparent 70%
   );
-  /* removed heavy blur so background stays sharp */
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding-top: 80px; /* keeps navbar + hero visible above */
   z-index: 40;
 }
 
@@ -579,12 +722,15 @@ body {
   border: 1px solid var(--line-soft);
   padding: 22px 22px 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal-close {
   position: absolute;
-  top: 10px;
-  right: 12px;
+  top: -10px;
+  right: -15px;
   border: none;
   background: transparent;
   color: var(--text-muted);
@@ -602,6 +748,15 @@ body {
   letter-spacing: 0.16em;
   color: var(--accent-secondary);
   margin: 0 0 6px;
+}
+
+.modal-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: block;
 }
 
 .modal-title {
