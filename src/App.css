@@ -212,6 +212,39 @@ section {
   width: 100%;
 }
 
+button.nav-links {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transition-fast);
+}
+
+button.nav-links::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background: var(--accent-primary);
+  transition: width var(--transition-fast);
+}
+
+button.nav-links:hover {
+  color: var(--text-main);
+}
+
+button.nav-links:hover::after {
+  width: 100%;
+}
+
 /* =========================================================
    Hero
    ========================================================= */
@@ -617,7 +650,7 @@ button.pill:hover {
 .projects-show-more-btn {
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid var(--line-subtle);
+  border: 1px solid var(--accent-secondary);
   background: rgba(9, 12, 23, 0.9);
   color: var(--text-muted);
   font-size: 11px;
@@ -632,17 +665,9 @@ button.pill:hover {
 }
 
 .projects-show-more-btn:hover {
-  border-color: var(--accent-secondary);
   color: var(--text-main);
+  border-color: var(--accent-primary);
   transform: translateY(-1px);
-}
-
-/* =========================================================
-   Contact section
-   ========================================================= */
-
-.section-contact {
-  padding-bottom: 60px;
 }
 
 .contact-links {
@@ -770,15 +795,130 @@ button.pill:hover {
   margin: 0 0 14px;
 }
 
-.modal-summary {
-  font-size: 13px;
-  color: var(--text-main);
-  margin: 0 0 10px;
+.modal-section {
+  margin-top: 20px;
 }
 
-.modal-details {
-  font-size: 13px;
+.modal-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.modal-section-body {
+  font-size: 15px;
+  line-height: 1.6;
   color: var(--text-muted);
-  line-height: 1.8;
-  margin: 0;
+}
+
+/* =========================================================
+   Experience section
+   ========================================================= */
+.experience-item {
+  position: relative;
+  background: rgba(9, 12, 23, 0.6);
+  border: 1px solid var(--line-subtle);
+  border-radius: 14px;
+  padding: 18px 22px 12px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(6px);
+  transition: border 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  width: 75%;
+}
+
+.experience-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-right: 56px;
+}
+
+.experience-chevron {
+  font-size: 16px;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+  margin-top: 4px;
+}
+
+.experience-item.is-open .experience-chevron {
+  transform: rotate(180deg);
+}
+
+.experience-logo {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 200px;
+  min-height: 80px;
+  max-height: 100px;
+  object-fit: contain;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.experience-item:hover .experience-logo {
+  opacity: 1;
+}
+
+.experience-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 0.25s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.experience-item.is-open .experience-body {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-tags {
+  margin: 10px 0 4px;
+}
+
+.experience-responsibilities {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.experience-responsibilities li {
+  margin-bottom: 8px;
+}
+
+.experience-responsibilities li::marker {
+  color: var(--accent);
+}
+
+.experience-subtitle {
+  margin: 32px 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experience-divider {
+  margin: 0 6px;
+  color: var(--text-muted);
+  font-size: 18px;
+  font-weight: 1000;
 }
