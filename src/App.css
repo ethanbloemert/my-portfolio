@@ -87,7 +87,6 @@ section {
 .hero-name {
   position: absolute;
   top: 0;
-  left: -50%;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -96,8 +95,6 @@ section {
   font-family: "Damion", cursive;
   font-size: 1.1em;
   color: var(--accent-primary);
-
-  opacity: 1;
   animation: helloSlide 1.5s ease forwards;
   animation-delay: 1s;  /* how long it stays centered alone */
 }
@@ -105,7 +102,6 @@ section {
 .hero-name {
   opacity: 0;
   color: var(--text-main);
-
   animation: nameFadeInSlide 1.5s ease forwards;
   animation-delay: 1.5s; /* just after hello starts sliding */
 }
@@ -266,11 +262,10 @@ button.nav-links:hover::after {
 
 .hero-title {
   position: relative;
-  font-size: clamp(32px, 4.5vw, 42px);
+  font-size: clamp(32px, 6.5vw, 50px);
   font-weight: 650;
   margin: 0 0 10px;
   text-align: center;
-
   display: inline-block;
   height: 1.2em;
 }
@@ -711,7 +706,7 @@ button.pill:hover {
 
 .footer {
   border-top: 1px solid rgba(55, 62, 90, 0.9);
-  padding: 18px 6vw 24px;
+  padding: 9px 3vw 12px;
   font-size: 12px;
   color: var(--text-muted);
   text-align: center;
