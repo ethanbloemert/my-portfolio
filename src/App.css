@@ -27,7 +27,6 @@
   /* Layout tokens */
   --radius-lg: 16px;
   --radius-pill: 999px;
-  --max-width: none;
   --shadow-soft: 0 20px 48px rgba(0, 0, 0, 0.75);
   --transition-fast: 150ms ease-out;
 }
@@ -42,7 +41,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-
+  width: 100%;
 }
 
 html {
@@ -58,23 +57,21 @@ body {
 }
 
 /* Root layout */
-
 .app {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .main {
   width: 100%;
-  padding: 96px 6vw 80px;
+  padding: 96px 5% 80px;
 }
 
 .hero,
 .section,
 .section-contact {
   width: 100%;
-  max-width: none;
   margin: 0 auto;
   justify-content: space-between;
 }
@@ -147,20 +144,33 @@ section {
 
 .nav-inner {
   width: 100%;
-  padding: 14px 6vw;
+  padding: 14px 2%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
 .nav-logo {
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
+  font-size: 13px;
+  letter-spacing: 0.22em;
   gap: 8px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+
+  container-type: inline-size; /* enables container queries */
+}
+
+/* Default: show full logo, hide short one */
+.logo-full {
+  display: inline;
+}
+.logo-short {
+  display: none;
 }
 
 .nav-logo::before {
@@ -175,9 +185,25 @@ section {
   );
 }
 
+/* When the nav-logo container is too small, swap versions */
+@container (max-width: 175px) {
+  .logo-full {
+    display: none;
+  }
+  .logo-short {
+    display: inline;
+  }
+  .nav-logo::before {
+    width: 8px;
+  }
+  .nav-logo {
+    gap: 4px;
+  }
+}
+
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: clamp(5px, 2vw, 20px);
   font-size: 13px;
 }
 
@@ -248,8 +274,8 @@ button.nav-links:hover::after {
 .hero {
   padding-top: 24px;
   padding-bottom: 56px;
-  justify-items: center;
   text-align: center;
+  justify-items: center;
 }
 
 .hero-tagline {
@@ -288,8 +314,8 @@ button.nav-links:hover::after {
 
 .hero-actions {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
+  justify-content: center;
 }
 
 /* =========================================================
@@ -358,6 +384,7 @@ button.nav-links:hover::after {
   line-height: 1.8;
   color: var(--text-main);
   width: 80%;
+  margin: 0 auto;
 }
 
 .section-text + .section-text {
@@ -380,6 +407,11 @@ button.nav-links:hover::after {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 18px;
+  max-height: 90px;
+  overflow-y: auto;
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-lg);
+  padding: 10px;
 }
 
 .pill {
@@ -434,21 +466,17 @@ button.pill:hover {
    Focus section (Mechanical / Electrical / Software)
    ========================================================= */
 
-.focus-section {
-  padding-top: 32px;
-  transition: background 350ms ease;
-}
-
 /* Keep your original toggle group */
 .focus-toggle {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   gap: 8px;
   justify-content: center;
   margin-bottom: 14px;
 }
 
-/* Base pill */
+/* Basse pill */
 .focus-pill {
   border-radius: var(--radius-pill);
   border: 1px solid var(--line-subtle);
@@ -466,36 +494,41 @@ button.pill:hover {
     transform var(--transition-fast);
 }
 
-.focus-pill:hover {
-  border-color: var(--accent-secondary);
-  transform: translateY(-1px);
-}
-
 /* Mechanical – solid yellow fill */
-.focus-section.mechanical .focus-pill.active {
+.mechanical .focus-pill.active {
   background: #facc15;  /* yellow-400 */
   border-color: #facc15;
   color: #09100a;
 }
 
+.mechanical-pill:hover {
+  border-color: #facc15;
+  transform: translateY(-1px);
+}
+
 /* Electrical – solid green fill */
-.focus-section.electrical .focus-pill.active {
+.electrical .focus-pill.active {
   background: #4ade80; /* green-400 */
   border-color: #4ade80;
   color: #03130b;
 }
 
+.electrical-pill:hover {
+  border-color: #4ade80;
+  transform: translateY(-1px);
+}
+
 /* Software – solid blue fill */
-.focus-section.software .focus-pill.active {
+.software .focus-pill.active {
   background: #fa6060; /* blue-400 */
   border-color: #fa6060;
   color: #04121f;
 }
 
-.focus-copy {
-  margin-top: 4px;
+.software-pill:hover {
+  border-color: #fa6060;
+  transform: translateY(-1px);
 }
-
 
 /* =========================================================
    Projects grid & cards
@@ -508,7 +541,6 @@ button.pill:hover {
   gap: 18px;
   margin-top: 32px;
   width: 100%;
-  max-width: none;
 }
 
 @media (min-width: 860px) {
@@ -558,7 +590,6 @@ button.pill:hover {
   flex-direction: column;
   max-height: 250px;
   gap: 8px;
-  max-width: none;
   overflow: hidden;
   cursor: pointer;
   transition:
@@ -569,6 +600,13 @@ button.pill:hover {
 }
 
 .card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.9);
+  background: linear-gradient(145deg, #151a2a, #070a13);
+}
+
+.card.featured:hover {
   border-color: var(--accent-primary);
   transform: translateY(-2px);
   box-shadow: 0 22px 52px rgba(0, 0, 0, 0.9);
@@ -706,7 +744,7 @@ button.pill:hover {
 
 .footer {
   border-top: 1px solid rgba(55, 62, 90, 0.9);
-  padding: 9px 3vw 12px;
+  padding: 9px 3% 12px;
   font-size: 12px;
   color: var(--text-muted);
   text-align: center;
@@ -735,8 +773,7 @@ button.pill:hover {
 
 .modal {
   position: relative;
-  max-width: 640px;
-  width: min(640px, 92vw);
+  width: 80%;
   background: rgba(7, 10, 19, 0.96);
   border-radius: 18px;
   border: 1px solid var(--line-soft);
@@ -818,11 +855,11 @@ button.pill:hover {
   border: 1px solid var(--line-subtle);
   border-radius: 14px;
   padding: 18px 22px 12px;
-  margin-bottom: 20px;
   backdrop-filter: blur(6px);
   transition: border 0.2s ease, transform 0.2s ease, background 0.2s ease;
   cursor: pointer;
-  width: 75%;
+  width: 80%;
+  margin: 0 auto 20px;
 }
 
 .experience-item:hover {
@@ -831,31 +868,18 @@ button.pill:hover {
 }
 
 .experience-header {
+  position: relative;   /* Needed for absolute logo positioning */
+  padding-right: 110px; /* Space for logo so text doesn't overlap */
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  padding-right: 56px;
-}
-
-.experience-chevron {
-  font-size: 16px;
-  transform: rotate(0deg);
-  transition: transform 0.2s ease;
-  margin-top: 4px;
-}
-
-.experience-item.is-open .experience-chevron {
-  transform: rotate(180deg);
+  width: 100%;          /* Let header span full item width */
 }
 
 .experience-logo {
   position: absolute;
-  top: 16px;
-  right: 18px;
-  width: 200px;
-  min-height: 80px;
-  max-height: 100px;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(60px, 20%, 150px);
   object-fit: contain;
   opacity: 0.85;
   pointer-events: none;
@@ -878,6 +902,7 @@ button.pill:hover {
 
 .experience-item.is-open .experience-body {
   max-height: 500px;
+  overflow-y: auto;
   opacity: 1;
   transform: translateY(0);
 }
@@ -896,19 +921,6 @@ button.pill:hover {
 
 .experience-responsibilities li {
   margin-bottom: 8px;
-}
-
-.experience-responsibilities li::marker {
-  color: var(--accent);
-}
-
-.experience-subtitle {
-  margin: 32px 0 16px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .experience-divider {

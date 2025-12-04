@@ -19,7 +19,7 @@ const PROJECTS = [
     title: "Baja SAE – Team Captain",
     image: "/projects/baja-captain.jpg",
     featured: true,
-    skills: ["Leadership", "Integration", "Data Acquisition", "Electrical Design", "Management"],
+    skills: ["Leadership", "Integration", "Vehicle", "Electrical Design", "Management"],
     details: {
       description:
         "Western Baja designs, builds, and races an off-road competition vehicle each season. I joined in 2022 and worked across mechanical, electrical, and systems integration roles. Over time I took on increasing responsibility as Electrical Lead and Technical Director for WB23 and now serve as Team Captain for WB25.",
@@ -36,7 +36,7 @@ const PROJECTS = [
     title: "Salford SS400+ Fertilizer Spreader",
     image: "/projects/ss400.jpeg",
     featured: true,
-    skills: ["Mechanical Design", "Hydraulics", "Integration", "Testing", "Manufacturability"],
+    skills: ["Mechanical Design", "Hydraulics", "Agriculture", "Simulation", "Manufacturability"],
     details: {
       description:
         "The SS400+ is a high-capacity fertilizer and lime spreader designed for large-scale agriculture. It offers a wide spread width, a large hopper, and dual-product capability, which allow operators to cover more acres with fewer stops. During a sixteen-month co-op at Salford I worked across mechanical, hydraulic, electrical, and field-testing roles as the platform moved from early concepts to production-ready designs.",
@@ -50,9 +50,9 @@ const PROJECTS = [
   {// ISOBUS Protocol Networking
     id: "salford-isobus",
     title: "ISOBUS Protocol Networking",
-    image: "/projects/salford-isobus.jpeg",
+    image: "/projects/salford-isobus.jpg",
     featured: false,
-    skills: ["Automation", "Networking", "Field Testing"],
+    skills: ["Automation", "J1939 ISOBUS", "Agriculture"],
     details: {
       description:
         "Modern agricultural implements communicate with tractors over the ISOBUS (ISO 11783) standard for control, monitoring, and map-based application. This project involved bringing a cultivator platform onto the ISOBUS network to enable GPS-based implement control and better integration with existing farm equipment.",
@@ -60,23 +60,6 @@ const PROJECTS = [
         "I implemented ISOBUS messaging on a Parker Hannifin controller that did not support the protocol natively. Using Parker IQAN, I developed controller logic, mapped application signals to ISOBUS messages, and validated communication on the network. I worked with early-release units in the field, supporting farmers, collecting feedback, and troubleshooting edge cases that only appeared in real operating environments.",
       result:
         "The cultivator could now integrate seamlessly with ISOBUS-capable tractors and farm displays, enabling more precise control and easier operator setup. The work de-risked future ISOBUS projects at the company and provided a template for adding standard networking to other implements."
-    }
-  },
-  {// Vertical Flow Wrapper
-    id: "vertical-flow-wrapper",
-    title: "VFFS Emulator",
-    image: "/projects/vertical-flow-wrapper-2.jpeg",
-    featured: false,
-    skills: ["PLC Programming", "Automation", "Controls"],
-    details: {
-      description:
-        "In a food packaging plant, a Planit MarsRapid vertical form-fill-seal system with a multihead weigher was available but had gone unused for more than two years. The plant continued to hand-pack a specific product format even though the weigher was fully capable of automating the count-and-dispense step. The equipment needed a new control strategy that used only the multihead weigher while leaving the VFFS portion inactive.",
-
-      contribution:
-        "I developed strong skills in controls engineering, PLC programming, and production-line integration. I identified the opportunity to automate the hand-packed product and designed the full solution. I repurposed the multihead weigher as a standalone dispensing system by writing a Siemens PLC program that emulated all necessary VFFS control signals and timing. I created new logic for two independent operator stations with foot pedals that triggered A-side and B-side dispense commands. I added and mapped I/O, built sequencing and interlocks for accurate and repeatable operation, and refined cycle timing, alarms, and usability through direct feedback from operators.",
-
-      result:
-        "The new system removed a long-standing hand-packing bottleneck and restored a machine that had been idle for years. The PLC-based VFFS emulation allowed the multihead weigher to run reliably as a standalone dispenser with two independent operator lanes, which increased throughput, reduced manual labor, and improved counting accuracy. The solution provided a flexible and low-maintenance system that fit seamlessly into existing production without requiring new capital equipment."
     }
   },
   {// Custom PCB Design
@@ -101,7 +84,7 @@ const PROJECTS = [
     title: "Engine Dynamometer",
     image: "/projects/dyno.jpg",
     featured: false,
-    skills: ["Hydraulics", "Controls", "Simulation"],
+    skills: ["Vehicle", "Controls", "Simulation"],
     details: {
       description:
         "Baja SAE powertrains are highly sensitive to CVT tuning, load conditions, and cooling. A dedicated engine and drivetrain dynamometer gives the team a controlled way to study performance and durability before installing components on the vehicle.",
@@ -113,12 +96,29 @@ const PROJECTS = [
         "The completed system will give the team a repeatable method to test engines, CVTs, and cooling packages off the vehicle. It will provide reliable torque and speed data, improve CVT calibration, reduce tuning guesswork, and allow the team to identify failures long before competition. The dyno will support more efficient drivetrain development and streamline the path from concept to validated hardware."
     }
   },
+  {// Vertical Flow Wrapper
+    id: "vertical-flow-wrapper",
+    title: "VFFS Emulator",
+    image: "/projects/vertical-flow-wrapper.jpg",
+    featured: false,
+    skills: ["Electrical Design", "Automation", "Controls"],
+    details: {
+      description:
+        "In a food packaging plant, a Planit MarsRapid vertical form-fill-seal system with a multihead weigher was available but had gone unused for more than two years. The plant continued to hand-pack a specific product format even though the weigher was fully capable of automating the count-and-dispense step. The equipment needed a new control strategy that used only the multihead weigher while leaving the VFFS portion inactive.",
+
+      contribution:
+        "I developed strong skills in controls engineering, PLC programming, and production-line integration. I identified the opportunity to automate the hand-packed product and designed the full solution. I repurposed the multihead weigher as a standalone dispensing system by writing a Siemens PLC program that emulated all necessary VFFS control signals and timing. I created new logic for two independent operator stations with foot pedals that triggered A-side and B-side dispense commands. I added and mapped I/O, built sequencing and interlocks for accurate and repeatable operation, and refined cycle timing, alarms, and usability through direct feedback from operators.",
+
+      result:
+        "The new system removed a long-standing hand-packing bottleneck and restored a machine that had been idle for years. The PLC-based VFFS emulation allowed the multihead weigher to run reliably as a standalone dispenser with two independent operator lanes, which increased throughput, reduced manual labor, and improved counting accuracy. The solution provided a flexible and low-maintenance system that fit seamlessly into existing production without requiring new capital equipment."
+    }
+  },
   {// 1947 Ford Sedan
     id: "47-ford",
     title: "1947 Ford Sedan",
-    image: "/projects/47-ford.jpeg",
+    image: "/projects/47-ford.jpg",
     featured: false,
-    skills: ["Fabrication", "Management", "Restoration"],
+    skills: ["Fabrication", "Vehicle", "Restoration"],
     details: {
       description:
         "I’ve restored multiple vehicles from the ground up, including a 1998 Dodge Ram 1500 and a 1947 Ford sedan. These are long-term, hands-on projects that touch every part of a vehicle’s structure, systems, and packaging.",
@@ -133,7 +133,7 @@ const PROJECTS = [
     title: "Custom Audio System",
     image: "/projects/sub-box.jpeg",
     featured: false,
-    skills: ["Fabrication", "Packaging", "Audio Design"],
+    skills: ["Fabrication", "Vehicle", "Audio Design"],
     details: {
       description:
         "This project was a full custom audio upgrade for a single-cab pickup that originally had four factory speakers. The goal was to build a fifteen-speaker system with significantly better sound quality while preserving the truck’s storage space and day-to-day usability.",
@@ -150,7 +150,7 @@ const PROJECTS = [
     title: "Western Engineering Build Team",
     image: "/projects/webt.jpg",
     featured: false,
-    skills: ["Structural", "Fabrication", "Management"],
+    skills: ["Construction", "Fabrication", "Management"],
     details: {
       description:
         "Western Engineering Build Team takes on hardware projects that give students experience with real components, tools, and constraints. One of the team’s largest responsibilities is creating major structures and displays for Western’s Orientation Week.",
@@ -198,9 +198,27 @@ const EXPERIENCE_PRO = [
       "Established documentation standards and CAD revision control practices to improve design traceability and long-term knowledge retention."
     ]
   },
-  {
+  {// WEESDF Chair
+    id: "weesdf-chair",
+    role: "WEESDF Chair",
+    company: "Western Engineering Endowed Student Donation Fund",
+    logo: "/logos/Western.png",
+    dates: "September 2025 – Present",
+    tags: ["Leadership", "Finance", "Strategy"],
+    bullets: [
+      "Chair a student-run endowed fund of $450,000 that allocates financial support to engineering clubs, design teams, and student-led technical initiatives.",
+      "Oversee proposal evaluation, funding decisions, and long-term financial stewardship to ensure equitable and high-impact resource distribution.",
+      "Develop strategic funding priorities that balance innovation, educational value, and fiscal sustainability across diverse engineering projects.",
+      "Lead committee meetings, manage deliberations, and ensure transparent, criteria-based decision-making for all grant applications.",
+      "Modernized review workflows by implementing structured scoring rubrics, documentation standards, and multi-year funding tracking.",
+      "Collaborate with faculty advisors, team leads, and student groups to clarify budgets, technical scopes, and outcome expectations.",
+      "Established reporting and accountability processes requiring funded groups to demonstrate learning value, responsible spending, and project impact.",
+      "Strengthened WEESDF’s long-term resilience through policy updates, clearer governance structures, and improved institutional memory."
+    ]
+  },
+  {// Design Engineering Co-op
     id: "salford-coop",
-    role: "Mechanical Engineering Co-op",
+    role: "Design Engineering Co-op",
     company: "Salford Group",
     logo: "/logos/Salford.png",
     dates: "2024 – 2025",
@@ -215,7 +233,7 @@ const EXPERIENCE_PRO = [
   },
   {// Process Optimization and Maintenance Engineer
     id: "process-optimization",
-    role: "Process Optimization and Maintenance Engineer",
+    role: "Maintenance and Process Engineering",
     company: "Schep's Bakeries Ltd",
     logo: "/logos/Scheps.png",
     dates: "2020 – 2023",
@@ -246,7 +264,7 @@ const EXPERIENCE_PRO = [
 const EXPERIENCE_EDU = [
   {
     id: "tron-degree",
-    role: "Bachelor of Engineering Science (Mechatronics Engineering)",
+    role: "Bachelor of Mechatronics Engineering",
     company: "Western University",
     logo: "/logos/Western.png",
     dates: "2020 – 2026 (expected)",
@@ -325,10 +343,11 @@ function App() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             style={{ cursor: "pointer" }}
           >
-            Ethan Bloemert
+            <span className="logo-full">Ethan Bloemert</span>
+            <span className="logo-short">EB</span>
           </div>
           <nav className="nav-links">
-            <a href="#focus">Discipline Overview</a>
+            <a href="#focus">Overview</a>
             <a href="#projects">Projects</a>
             <a href="#experience">Experience</a>
             <a href="#story">Story</a>
@@ -377,7 +396,7 @@ function App() {
           <div className="focus-toggle">
             <button
               className={
-                "focus-pill" + (focusArea === "mechanical" ? " active" : "")
+                "focus-pill mechanical-pill" + (focusArea === "mechanical" ? " active" : "")
               }
               onClick={() => setFocusArea("mechanical")}
             >
@@ -385,7 +404,7 @@ function App() {
             </button>
             <button
               className={
-                "focus-pill" + (focusArea === "electrical" ? " active" : "")
+                "focus-pill electrical-pill" + (focusArea === "electrical" ? " active" : "")
               }
               onClick={() => setFocusArea("electrical")}
             >
@@ -393,14 +412,14 @@ function App() {
             </button>
             <button
               className={
-                "focus-pill" + (focusArea === "software" ? " active" : "")
+                "focus-pill software-pill" + (focusArea === "software" ? " active" : "")
               }
               onClick={() => setFocusArea("software")}
             >
               Software
             </button>
           </div>
-          <p className="section-text focus-copy">{FOCUS_COPY[focusArea]}</p>
+          <p className="section-text">{FOCUS_COPY[focusArea]}</p>
         </section>
 
         {/* Projects */}
@@ -410,7 +429,7 @@ function App() {
             Click a project to see the full story.
           </p>
 
-          <div className="pill-row skills-pill-row">
+          <div className="pill-row scroll-fade">
             {/* "All" pill */}
             <button
               className={`pill pill-clear ${activeSkills.length === 0 ? "pill-active" : ""}`}
@@ -542,6 +561,7 @@ function App() {
         {/* Experience */}
         <section id="experience" className="section">
           <h3 className="section-title">Professional Experience</h3>
+
           {EXPERIENCE_PRO.map((job) => {
             const isOpen = openExperienceId === job.id;
 
@@ -551,18 +571,19 @@ function App() {
                 className={`experience-item ${isOpen ? "is-open" : ""}`}
                 onClick={() => toggleExperience(job.id)}
               >
-                {job.logo && (
-                  <img
-                    src={job.logo}
-                    alt={`${job.company} logo`}
-                    className="experience-logo"
-                  />
-                )}
-
                 <div className="experience-header">
+                  {job.logo && (
+                    <img
+                      src={job.logo}
+                      alt={`${job.company} logo`}
+                      className="experience-logo"
+                    />
+                  )}
+
                   <div>
                     <h3 className="experience-role">{job.role}</h3>
-                    <p className="experience-company">{job.company} 
+                    <p className="experience-company">
+                      {job.company}
                       <span className="experience-divider">·</span>
                       <span className="experience-dates">{job.dates}</span>
                     </p>
@@ -591,6 +612,7 @@ function App() {
           })}
 
           <h3 className="section-title">Educational Experience</h3>
+
           {EXPERIENCE_EDU.map((job) => {
             const isOpen = openExperienceId === job.id;
 
@@ -600,15 +622,15 @@ function App() {
                 className={`experience-item ${isOpen ? "is-open" : ""}`}
                 onClick={() => toggleExperience(job.id)}
               >
-                {job.logo && (
-                  <img
-                    src={job.logo}
-                    alt={`${job.company} logo`}
-                    className="experience-logo"
-                  />
-                )}
-
                 <div className="experience-header">
+                  {job.logo && (
+                    <img
+                      src={job.logo}
+                      alt={`${job.company} logo`}
+                      className="experience-logo"
+                    />
+                  )}
+
                   <div>
                     <h3 className="experience-role">{job.role}</h3>
                     <p className="experience-company">{job.company}</p>
@@ -637,6 +659,7 @@ function App() {
             );
           })}
         </section>
+
 
         {/* Hands-on Story */}
         <section id="story" className="section">
