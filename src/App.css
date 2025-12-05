@@ -683,10 +683,10 @@ button.pill:hover {
 .projects-show-more-btn {
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid var(--accent-secondary);
+  border: 2px solid var(--accent-primary);
   background: rgba(9, 12, 23, 0.9);
-  color: var(--text-muted);
-  font-size: 11px;
+  color: var(--text);
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
@@ -699,7 +699,7 @@ button.pill:hover {
 
 .projects-show-more-btn:hover {
   color: var(--text-main);
-  border-color: var(--accent-primary);
+  border-color: var(--accent-secondary);
   transform: translateY(-1px);
 }
 
