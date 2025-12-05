@@ -808,12 +808,19 @@ button.pill:hover {
 }
 
 .modal-image {
-  width: 100%;
-  max-height: 300px;
+  justify-self: center;
+  width: 90%;
+  max-height: 55vh;
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 16px;
   display: block;
+}
+
+@media (max-width: 860px) {
+  .modal-image {
+    width: 100%;
+  }
 }
 
 .modal-title {
