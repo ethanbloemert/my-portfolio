@@ -47,6 +47,23 @@ const PROJECTS = [
       result:
         "The SS400+ was awarded the 2024 CropLife IRON Product of the Year, validating its performance and innovation. The platform delivered a measured hydraulic and control performance improvement of about 68% over the initial design. Its large hopper, wide swath capability (spreading fertilizer up to 120 ft and lime up to 70 ft), and dual-material design positioned it as a high-throughput solution for modern agriculture. The improvements significantly boosted reliability, manufacturability, and ease of maintenance while reducing field-use surprises."    }
   },
+  {// eCVT and DCT Controllers
+    id: "transmission-ctrl",
+    title: "eCVT & DCT Controllers",
+    image: "/projects/DCT.jpg",
+    featured: false,
+    skills: ["Controls", "Integration", "PCB Design"],
+    details: {
+      description:
+        "The Baja SAE vehicle platform evaluated two electronically managed drivetrain architectures: an electronically controlled continuously variable transmission (eCVT) and a dual-clutch transmission (DCT). Each configuration required dedicated control electronics to manage actuation, sensor feedback, and drivetrain state under dynamic off-road conditions. The focus of the project was to design robust control hardware and embedded logic tailored to each transmission strategy.",
+
+      contribution:
+        "For both transmission systems, I designed custom PCBs to support drivetrain sensing and control, including power regulation, signal conditioning, microcontroller integration, and actuator interfacing. For the eCVT architecture, I developed embedded firmware to process RPM and throttle inputs, command ratio adjustments, and enforce real-time safety constraints. For the DCT system, I implemented control logic to manage clutch actuation, shift sequencing, and state monitoring to ensure smooth engagement and fault detection. Both systems were validated through bench testing and vehicle integration, where I resolved electrical noise, timing synchronization, and edge-case behavior under load.",
+
+      result:
+        "The work established modular drivetrain control architectures for multiple transmission strategies, improving electrical robustness, diagnostic visibility, and system scalability. The designs provided a technical foundation for drivetrain decision-making and future vehicle iterations."
+    }
+  },
   {// ISOBUS Protocol Networking
     id: "salford-isobus",
     title: "ISOBUS Protocol Networking",
